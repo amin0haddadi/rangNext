@@ -1,14 +1,14 @@
 import { CartActions } from "@/constants";
 import React, { createContext, useReducer } from "react";
 
-const initialState: Cart = [];
+const initialState: any = [];
 
 export const CartContext = createContext({
 	state: initialState,
 	dispatch: (_: Action<CartActions>) => {},
 });
 
-const reducer = (state: Cart, action: Action<CartActions>): Cart => {
+const reducer = (state: any, action: Action<CartActions>): any => {
 	return [];
 };
 
