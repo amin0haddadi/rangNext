@@ -1,0 +1,43 @@
+.footer-grid-section {
+	display: grid;
+	grid-template-areas: "logo extra" "links links";
+	gap: 2rem;
+}
+
+.footer-grid-section > div {
+	place-items: center;
+}
+
+.links-section {
+	grid-area: links;
+	display: flex;
+	width: 100%;
+	justify-content: space-around;
+	gap: 2rem;
+	flex-wrap: wrap;
+}
+
+.links-section > * {
+	flex-grow: 1;
+}
+
+.logo-section {
+	grid-area: logo;
+	display: grid;
+}
+
+.extra-section {
+	grid-area: extra;
+	display: grid;
+}
+
+@media (width > 760px) {
+	.footer-grid-section {
+		grid-template-areas: "logo extra" "links links";
+	}
+}
+@media (width > 1120px) {
+	.footer-grid-section {
+		grid-template-areas: "logo logo logo links links links links links links extra extra extra";
+	}
+}

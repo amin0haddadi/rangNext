@@ -1,0 +1,21 @@
+[dir="rtl"] .slick-next {
+	right: auto;
+	left: -25px;
+}
+
+[dir="rtl"] .slick-prev {
+	right: -25px;
+	left: auto;
+}
+
+.slick-arrow {
+	position: absolute;
+	top: 45%;
+	width: 50px !important;
+	height: 50px !important;
+	cursor: pointer;
+	border-radius: 50%;
+	z-index: 3;
+	display: grid;
+	place-items: center;
+}
