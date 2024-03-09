@@ -33,7 +33,7 @@ export default function CheckoutStepper() {
 	return (
 		<Box sx={{ width: "100%" }}>
 			<Stepper activeStep={activeStep} alternativeLabel>
-				{steps.map((step) => (
+				{steps.map((step: any) => (
 					<Step key={step.lable}>
 						<StepLabel
 							StepIconComponent={step.icon}
