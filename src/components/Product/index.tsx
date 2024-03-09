@@ -4,7 +4,7 @@ import ProductInfo from "./ProductInfo";
 import SlideShow from "./SlideShow";
 
 interface IProductProps extends React.PropsWithChildren {
-	product: Product;
+	product: any;
 }
 
 const Product: React.FC<IProductProps> = ({ product }) => {
