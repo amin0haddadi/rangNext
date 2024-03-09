@@ -86,7 +86,7 @@ const renderSingleImage = (imageSrc: string) => (
 );
 
 interface ISlideShowProps {
-	images: Product["images"];
+	images: any;
 }
 
 const SlideShow: React.FC<ISlideShowProps> = ({ images }) => {
@@ -101,7 +101,7 @@ const SlideShow: React.FC<ISlideShowProps> = ({ images }) => {
 	return (
 		<Box className="slider-container">
 			<SlickSlider {...settings} customPaging={customPaging}>
-				{images.map((img, index) => (
+				{images.map((img: any, index: number) => (
 					<Box key={index}>{renderSingleImage(img)}</Box>
 				))}
 			</SlickSlider>
