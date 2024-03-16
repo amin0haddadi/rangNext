@@ -5,7 +5,7 @@ import { Grid } from "@mui/material";
 import Image from "next/image";
 
 const Home = async () => {
-	const res = await fetch("https://fakestoreapi.com/products", {
+	const res = await fetch("http://localhost:3550/products", {
 		cache: "no-cache",
 	});
 	if (!res.ok) {
@@ -15,8 +15,8 @@ const Home = async () => {
 	return (
 		<>
 			<Slider>
-				{p?.map((pro: ProductBase, i: number) => (
-					<Image key={i} src={pro.image} width={200} height={200} alt="prod" />
+				{p.map((product: any) => (
+					<ProductCard key={product.id} product={product} />
 				))}
 			</Slider>
 
