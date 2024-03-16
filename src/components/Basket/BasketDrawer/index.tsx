@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import CloseIcon from "@mui/icons-material/Close";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import LooksOneIcon from "@mui/icons-material/LooksOne";
 import BasketItem from "./BasketItems";
 import Link from "next/link";

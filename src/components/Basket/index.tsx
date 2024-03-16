@@ -2,7 +2,7 @@
 import { Badge, IconButton } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import BasketDrawer from "./BasketDrawer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const basketCounter = 4;
 const BasketButton = () => {
@@ -13,6 +13,7 @@ const BasketButton = () => {
 	const handleBasketDrawerOpen = () => {
 		setOpenBasket(true);
 	};
+
 	return (
 		<>
 			<IconButton
