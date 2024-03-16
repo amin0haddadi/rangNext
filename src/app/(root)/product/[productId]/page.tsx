@@ -12,26 +12,38 @@ interface IProductPageProps {
 }
 
 const ProductPage: React.FC<IProductPageProps> = async ({ params }) => {
-	const {
-		data: { product },
-	} = await fetchProduct(params.productId);
-	const {
-		data: { category },
-	} = await fetchCategory({ id: product.category.id });
+	// const {
+	// 	data: { product },
+	// } = await fetchProduct(params.productId);
+	// const {
+	// 	data: { category },
+	// } = await fetchCategory({ id: product.category.id });
+
+	const res = await fetch(
+		`http://localhost:3550/products/${params.productId}`,
+		{
+			cache: "no-cache",
+		}
+	);
+	if (!res) {
+		throw new Error("HTTP error! status:");
+	}
+	const p = await res.json();
+	console.log(params.productId);
 
 	return (
 		<>
-			<Product product={product} />
+			<Product product={p} />
 			<Divider>
 				<Typography variant="h6" component={"h5"} textAlign={"center"}>
 					محصولات مرتبط
 				</Typography>
 			</Divider>
-			<Slider>
+			{/* <Slider>
 				{category.products.map((product) => (
 					<ProductCard key={product.id} product={product} />
 				))}
-			</Slider>
+			</Slider> */}
 		</>
 	);
 };
