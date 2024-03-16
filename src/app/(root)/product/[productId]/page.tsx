@@ -29,7 +29,14 @@ const ProductPage: React.FC<IProductPageProps> = async ({ params }) => {
 		throw new Error("HTTP error! status:");
 	}
 	const p = await res.json();
-	console.log(params.productId);
+
+	const resCategory = await fetch("http://localhost:3550/products", {
+		cache: "no-cache",
+	});
+	if (!res.ok) {
+		throw new Error("HTTP error! status:");
+	}
+	const pCategory = await resCategory.json();
 
 	return (
 		<>
@@ -39,11 +46,11 @@ const ProductPage: React.FC<IProductPageProps> = async ({ params }) => {
 					محصولات مرتبط
 				</Typography>
 			</Divider>
-			{/* <Slider>
-				{category.products.map((product) => (
+			<Slider>
+				{pCategory.map((product: any) => (
 					<ProductCard key={product.id} product={product} />
 				))}
-			</Slider> */}
+			</Slider>
 		</>
 	);
 };
