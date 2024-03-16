@@ -9,7 +9,7 @@ import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 import { useState } from "react";
 import Image from "next/image";
-
+import { usePathname } from "next/navigation";
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const images = [
@@ -34,6 +34,8 @@ const images = [
 const Hero = () => {
 	const theme = useTheme();
 	const [activeStep, setActiveStep] = useState(0);
+	const pathname = usePathname();
+	const isRoutePage = pathname === "/";
 	const maxSteps = images.length;
 
 	const handleNext = () => {
@@ -49,7 +51,14 @@ const Hero = () => {
 	};
 
 	return (
-		<Box sx={{ width: "100%", flexGrow: 1, position: "relative" }}>
+		<Box
+			display={isRoutePage ? "block" : "none"}
+			sx={{
+				width: "100%",
+				flexGrow: 1,
+				position: "relative",
+			}}
+		>
 			<AutoPlaySwipeableViews
 				axis={theme.direction === "rtl" ? "x-reverse" : "x"}
 				index={activeStep}

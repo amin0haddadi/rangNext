@@ -46,6 +46,7 @@ const Header: React.FC<IHeaderProps> = () => {
 				flexGrow: 1,
 				position: "sticky",
 				top: 0,
+				mb: 8,
 				zIndex: 1000,
 				transition: "opacity 0.5s",
 				opacity: isScrolledDown ? 0 : 1,
