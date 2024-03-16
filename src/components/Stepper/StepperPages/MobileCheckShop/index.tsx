@@ -11,7 +11,7 @@ const MobileCheckShop = () => {
 		fetch("https://fakestoreapi.com/products")
 			.then((res) => res.json())
 			.then((data) => setP(data));
-	});
+	}, []);
 	return (
 		<Box my={5} mx={2}>
 			{p?.map((pro: any) => (

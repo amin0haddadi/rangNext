@@ -21,7 +21,7 @@ const DesktopCheckShop = () => {
 		fetch("https://fakestoreapi.com/products")
 			.then((res) => res.json())
 			.then((data) => setP(data));
-	});
+	}, []);
 
 	return (
 		<TableContainer sx={{ mt: 8 }}>
