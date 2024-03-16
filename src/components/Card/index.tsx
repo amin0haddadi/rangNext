@@ -24,11 +24,12 @@ const ProductCard: FC<IProductCardProps> = ({ product }) => {
 		>
 			<AddToCartButton />
 			<Link
-				href={`/product/${product.id}`}
+				href={`/product/${product._id}`}
 				style={{ display: "block", color: "inherit" }}
 			>
 				<CardActionArea>
 					<CardMedia
+						key={product._id}
 						sx={{
 							background: "black",
 							position: "relative",
@@ -36,9 +37,9 @@ const ProductCard: FC<IProductCardProps> = ({ product }) => {
 						}}
 					>
 						<Image
-							src={product.image}
+							src={product.images[0]}
 							// todo : fix Product type (merge ProductBase and Product data type)
-							alt={product?.description}
+							alt={product?.name}
 							width={400}
 							height={400}
 							style={{
@@ -51,7 +52,7 @@ const ProductCard: FC<IProductCardProps> = ({ product }) => {
 					</CardMedia>
 					<CardContent sx={{ textAlign: "center" }}>
 						<Typography gutterBottom variant="h5">
-							{product.title.slice(0, 15)}
+							{product.name}
 						</Typography>
 						<Typography variant="h6" fontWeight={600}>
 							{product.price} تومان
