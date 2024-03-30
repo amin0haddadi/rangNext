@@ -55,7 +55,7 @@ const ChildTabs: FC<IChildTabProps> = ({ options }) => {
 	};
 
 	return (
-		<Box sx={{ width: "100%" }}>
+		<Box>
 			<Box sx={{ borderBottom: 1, borderColor: "divider" }}>
 				<Tabs
 					value={value}

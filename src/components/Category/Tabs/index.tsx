@@ -4,87 +4,15 @@ import Box from "@mui/material/Box";
 import { useState } from "react";
 import ChildTabs from "./ChildTabs";
 
-const categories = [
-	{
-		name: "آرایشی",
-		id: 1,
-		subCategory: [
-			{
-				name: "آرایش چشم",
-				id: 1,
-				subchild: ["ریمل", "سایه چشم", "مداد و خط چشم"],
-			},
-			{
-				name: "آرایش ابرو",
-				id: 2,
-				subchild: ["ریمل ابرو", "سایه چشم", "مداد و خط چشم"],
-			},
-			{
-				name: "آرایش صورت",
-				id: 3,
-				subchild: [
-					"ریمل ابرو",
-					"سایه چشم",
-					"مداد و خط چشم",
-					"ریمل ابرو",
-					"سایه چشم",
-					"مداد و خط چشم",
-				],
-			},
-			{
-				name: "آرایش لب",
-				id: 4,
-				subchild: ["ریمل ابرو", "سایه چشم", "مداد و خط چشم"],
-			},
-			{
-				name: "آرایش ناخن",
-				id: 5,
-				subchild: ["ریمل ابرو", "سایه چشم", "مداد و خط چشم"],
-			},
-		],
-	},
-
-	{
-		name: "پوست",
-		id: 2,
-		subCategory: [
-			{
-				"شوینده و پاک کننده": {
-					id: 1,
-					subchild: ["ریمل", "سایه چشم", "مداد و خط چشم"],
-				},
-				"محصولات پوست ": {
-					id: 2,
-					subchild: ["ریمل ابرو", "سایه چشم", "مداد و خط چشم"],
-				},
-				"محصولات درمانی پوست ": {
-					id: 3,
-					subchild: [
-						"ریمل ابرو",
-						"سایه چشم",
-						"مداد و خط چشم",
-						"ریمل ابرو",
-						"سایه چشم",
-						"مداد و خط چشم",
-					],
-				},
-				"مراقبت پوستی ": {
-					id: 4,
-					subchild: ["ریمل ابرو", "سایه چشم", "مداد و خط چشم"],
-				},
-				"اسپا ": {
-					id: 5,
-					subchild: ["ریمل ابرو", "سایه چشم", "مداد و خط چشم"],
-				},
-			},
-		],
-	},
-];
-
 const options = [
 	["ارایشی", "براق کننده", "رژلب جامد", "رژلب مایع"],
 	["اکسسوری", "بدلیجات", "کمربند"],
 	["مردانه", "اسپرت", "مجلسی"],
+];
+const options1 = [
+	["براق کننده", "رژلب جامد", "رژلب مایع"],
+	["بدلیجات", "کمربند"],
+	["اسپرت", "مجلسی"],
 ];
 
 interface TabPanelProps {
@@ -154,9 +82,9 @@ const VerticalTabs = () => {
 					borderColor: "#eeeeee",
 				}}
 			>
-				{categories?.map((x, i) => (
+				{options?.map((x, i) => (
 					<Tab
-						label={x.name}
+						label={x[0]}
 						{...a11yProps(i)}
 						key={i}
 						onMouseEnter={(e) => handleHover(e, i)}
@@ -165,14 +93,14 @@ const VerticalTabs = () => {
 							fontWeight: 600,
 							paddingX: 4,
 							paddingY: 2,
-							":hover": { bgcolor: "background.paper" },
+							":hover": { bgcolor: "background.paper", color: "red" },
 						}}
 					/>
 				))}
 			</Tabs>
 			{options?.map((x, i) => (
 				<TabPanel value={value} index={i} key={i}>
-					<ChildTabs options={options} />
+					<ChildTabs options={value === 1 ? options : options1} />
 				</TabPanel>
 			))}
 		</Box>
