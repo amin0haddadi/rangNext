@@ -14,12 +14,14 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import CloseIcon from "@mui/icons-material/Close";
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Box } from "@mui/system";
 import CheckroomIcon from "@mui/icons-material/Checkroom";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Link from "next/link";
+import Detail from "./Details";
+import { X } from "@mui/icons-material";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
 	display: "flex",
@@ -47,6 +49,21 @@ const HeaderDrawer: FC<IDrawerProps> = ({
 	handleDrawerOpen,
 	open,
 }): JSX.Element => {
+	const [categories, setCategories] = useState<any>();
+	const [subSubCategories, setSubSubCategories] = useState<any>();
+
+	useEffect(() => {
+		fetch("http://localhost:3550/categories")
+			.then((res) => res.json())
+			.then((data) => setCategories(data));
+		// fetch(`http://localhost:3550/categories/${categoryId}/subcategories`)
+		// 	.then((res) => res.json())
+		// 	.then((data) => setSubCategories(data));
+		// fetch(`http://localhost:3550/categories/${subCategoryId}/subsubcategories`)
+		// 	.then((res) => res.json())
+		// 	.then((data) => setSubSubCategories(data));
+	}, []);
+
 	return (
 		<SwipeableDrawer
 			sx={{
@@ -68,30 +85,20 @@ const HeaderDrawer: FC<IDrawerProps> = ({
 			</DrawerHeader>
 
 			<List sx={{ overflowY: "auto" }}>
-				{pages.map((page) => (
-					<ListItem key={page[0]}>
+				{categories?.map((Category: any) => (
+					<ListItem key={Category._id}>
 						<Accordion sx={{ width: "100%" }}>
 							<AccordionSummary
 								expandIcon={<ExpandMoreIcon />}
-								aria-controls={`${page[0]}-content`}
-								id={page[0]}
+								aria-controls={`${Category.name}-content`}
+								id={Category._id}
 							>
 								<Typography fontWeight={900} fontSize={22}>
-									{page[0]}
+									{Category.name}
 								</Typography>
 							</AccordionSummary>
 							<AccordionDetails>
-								{page
-									.filter((y, i) => i > 0)
-									.map((x, i) => (
-										<ListItemButton key={i}>
-											<ListItemText>
-												<Typography fontSize={17} fontWeight={500}>
-													{x}
-												</Typography>
-											</ListItemText>
-										</ListItemButton>
-									))}
+								<Detail categoryId={Category._id} />
 							</AccordionDetails>
 						</Accordion>
 					</ListItem>
