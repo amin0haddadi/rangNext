@@ -2,7 +2,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
+import GrandChildTabs from "../GrandChildTabs";
 
 interface TabPanelProps {
 	children?: React.ReactNode;
@@ -21,11 +22,7 @@ function CustomTabPanel(props: TabPanelProps) {
 			aria-labelledby={`simple-tab-${index}`}
 			{...other}
 		>
-			{value === index && (
-				<Box sx={{ p: 3 }}>
-					<Typography>{children}</Typography>
-				</Box>
-			)}
+			{value === index && <Box sx={{ p: 3 }}>{children}</Box>}
 		</div>
 	);
 }
@@ -38,10 +35,11 @@ function a11yProps(index: number) {
 }
 
 interface IChildTabProps {
-	options: string[][];
+	categoryId: number;
 }
-const ChildTabs: FC<IChildTabProps> = ({ options }) => {
+const ChildTabs: FC<IChildTabProps> = ({ categoryId }) => {
 	const [value, setValue] = useState(0);
+	const [subCategories, setSubCategories] = useState<any>();
 
 	const handleChange = (event: React.SyntheticEvent, newValue: number) => {
 		setValue(newValue);
@@ -54,28 +52,33 @@ const ChildTabs: FC<IChildTabProps> = ({ options }) => {
 		setValue(newValue);
 	};
 
+	useEffect(() => {
+		fetch(`http://localhost:3550/categories/${categoryId}/subcategories`)
+			.then((res) => res.json())
+			.then((data) => setSubCategories(data));
+	}, []);
 	return (
-		<Box>
+		<Box sx={{ minWidth: 400 }}>
 			<Box sx={{ borderBottom: 1, borderColor: "divider" }}>
 				<Tabs
 					value={value}
 					onChange={handleChange}
 					aria-label="basic tabs example"
 				>
-					{options?.map((x, i) => (
+					{subCategories?.map((x: any, i: number) => (
 						<Tab
-							label={x[0]}
+							label={x.name}
 							{...a11yProps(i)}
-							key={i}
+							key={x._id}
 							onMouseEnter={(e) => handleHover(e, i)}
 							sx={{ fontSize: 17, fontWeight: 900, paddingX: 4 }}
 						/>
 					))}
 				</Tabs>
 			</Box>
-			{options?.map((x, i) => (
-				<CustomTabPanel value={value} index={i} key={i}>
-					{x[i]}
+			{subCategories?.map((x: any, i: number) => (
+				<CustomTabPanel value={value} index={i} key={x._id}>
+					<GrandChildTabs subCategoryId={x._id} />
 				</CustomTabPanel>
 			))}
 		</Box>

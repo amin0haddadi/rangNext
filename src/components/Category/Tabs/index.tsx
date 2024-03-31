@@ -1,19 +1,8 @@
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ChildTabs from "./ChildTabs";
-
-const options = [
-	["ارایشی", "براق کننده", "رژلب جامد", "رژلب مایع"],
-	["اکسسوری", "بدلیجات", "کمربند"],
-	["مردانه", "اسپرت", "مجلسی"],
-];
-const options1 = [
-	["براق کننده", "رژلب جامد", "رژلب مایع"],
-	["بدلیجات", "کمربند"],
-	["اسپرت", "مجلسی"],
-];
 
 interface TabPanelProps {
 	children?: React.ReactNode;
@@ -46,6 +35,7 @@ const a11yProps = (index: number) => {
 
 const VerticalTabs = () => {
 	const [value, setValue] = useState<number>(0);
+	const [categories, setCategories] = useState<any>();
 
 	const handleChange = (event: React.SyntheticEvent, newValue: number) => {
 		setValue(newValue);
@@ -57,13 +47,19 @@ const VerticalTabs = () => {
 		setValue(newValue);
 	};
 
+	useEffect(() => {
+		fetch("http://localhost:3550/categories")
+			.then((res) => res.json())
+			.then((data) => setCategories(data));
+	}, []);
+
 	return (
 		<Box
 			sx={{
 				flexGrow: 1,
 				bgcolor: "background.paper",
 				display: "flex",
-				height: 400,
+				minHeight: 400,
 			}}
 		>
 			<Tabs
@@ -82,25 +78,25 @@ const VerticalTabs = () => {
 					borderColor: "#eeeeee",
 				}}
 			>
-				{options?.map((x, i) => (
+				{categories?.map((x: any, i: number) => (
 					<Tab
-						label={x[0]}
-						{...a11yProps(i)}
-						key={i}
+						label={x.name}
+						{...a11yProps(x._id)}
+						key={x._id}
 						onMouseEnter={(e) => handleHover(e, i)}
 						sx={{
 							fontSize: 16,
 							fontWeight: 600,
-							paddingX: 4,
+							paddingX: 5,
 							paddingY: 2,
 							":hover": { bgcolor: "background.paper", color: "red" },
 						}}
 					/>
 				))}
 			</Tabs>
-			{options?.map((x, i) => (
-				<TabPanel value={value} index={i} key={i}>
-					<ChildTabs options={value === 1 ? options : options1} />
+			{categories?.map((x: any, i: number) => (
+				<TabPanel value={value} index={i} key={x._id}>
+					<ChildTabs categoryId={x._id} />
 				</TabPanel>
 			))}
 		</Box>

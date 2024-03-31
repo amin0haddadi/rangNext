@@ -43,8 +43,8 @@ const CategoryMenu = () => {
 					top: "72px",
 					transform: "translateX(-50%)",
 					background: "#ffffff",
-					width: "250px",
-					left: "110%",
+					width: "50%",
+					left: "20%",
 				}}
 			>
 				<VerticalTabs />
