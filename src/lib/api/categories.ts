@@ -32,7 +32,7 @@ interface IFetchCategoryParams {
 // Fetches a single category by ID
 export async function fetchCategory(
 	params: IFetchCategoryParams
-): Promise<ServerResponse<CategoryResponse>> {
+): Promise<any> {
 	noStore();
 	try {
 		const query = new URLSearchParams();

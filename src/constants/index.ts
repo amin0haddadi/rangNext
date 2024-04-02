@@ -1,5 +1,5 @@
 // urls
-export const BASE_URL = "http://localhost:3000/api/";
+export const BASE_URL = "http://localhost:3550/";
 export enum URL {
 	REGISTER = BASE_URL + "auth/register", // Endpoint for user registration
 	LOGIN = BASE_URL + "auth/login", // Endpoint for user login

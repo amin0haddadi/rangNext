@@ -21,7 +21,6 @@ import CheckroomIcon from "@mui/icons-material/Checkroom";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Link from "next/link";
 import Detail from "./Details";
-import { X } from "@mui/icons-material";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
 	display: "flex",
@@ -32,11 +31,6 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 const drawerWidth = { xs: "90%", md: "40%" };
-const pages = [
-	["ارایشی", "براق کننده", "رژلب جامد", "رژلب مایع"],
-	["اکسسوری", "بدلیجات", "کمربند"],
-	["مردانه", "اسپرت", "مجلسی"],
-];
 
 interface IDrawerProps {
 	handleDrawerClose: () => void;
@@ -56,12 +50,6 @@ const HeaderDrawer: FC<IDrawerProps> = ({
 		fetch("http://localhost:3550/categories")
 			.then((res) => res.json())
 			.then((data) => setCategories(data));
-		// fetch(`http://localhost:3550/categories/${categoryId}/subcategories`)
-		// 	.then((res) => res.json())
-		// 	.then((data) => setSubCategories(data));
-		// fetch(`http://localhost:3550/categories/${subCategoryId}/subsubcategories`)
-		// 	.then((res) => res.json())
-		// 	.then((data) => setSubSubCategories(data));
 	}, []);
 
 	return (

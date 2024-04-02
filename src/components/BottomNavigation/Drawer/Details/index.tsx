@@ -8,6 +8,7 @@ import {
 	AccordionDetails,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import SubSubCategories from "../SubCategories";
 
 interface DetailProps {
 	categoryId: number;
@@ -37,9 +38,7 @@ const Detail: FC<DetailProps> = ({ categoryId }) => {
 					<AccordionDetails>
 						<ListItemButton key={x._id}>
 							<ListItemText>
-								<Typography fontSize={17} fontWeight={900} color={"grey"}>
-									{x.name}
-								</Typography>
+								<SubSubCategories subCategoryId={x._id} />
 							</ListItemText>
 						</ListItemButton>
 					</AccordionDetails>
