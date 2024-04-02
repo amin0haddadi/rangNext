@@ -15,13 +15,13 @@ const Home = async () => {
 	return (
 		<>
 			<Slider>
-				{p.map((product: any) => (
+				{p?.products.map((product: any) => (
 					<ProductCard key={product.id} product={product} />
 				))}
 			</Slider>
 
 			<GridView>
-				{p.map((pro: ProductBase, i: number) => (
+				{p?.products.map((pro: ProductBase, i: number) => (
 					<Grid item key={i} xs={1}>
 						<ProductCard key={i} product={pro} />
 					</Grid>

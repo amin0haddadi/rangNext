@@ -47,7 +47,7 @@ const ProductPage: React.FC<IProductPageProps> = async ({ params }) => {
 				</Typography>
 			</Divider>
 			<Slider>
-				{pCategory.map((product: any) => (
+				{pCategory?.products.map((product: any) => (
 					<ProductCard key={product.id} product={product} />
 				))}
 			</Slider>
