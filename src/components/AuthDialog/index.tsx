@@ -39,7 +39,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ position }) => {
 		setOpen(false);
 	};
 
-	const loginOrProfile = user.username ? (
+	const loginOrProfile = user.phoneNumber ? (
 		<Button
 			component={Link}
 			href="/profile"

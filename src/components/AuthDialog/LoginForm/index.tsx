@@ -1,5 +1,5 @@
 "use client";
-import { ILoginUserParams, loginUser } from "@/lib/api/auth";
+import { ILoginUserParams, fetchProfile, loginUser } from "@/lib/api/auth";
 import { setTokens } from "@/lib/utils";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
@@ -11,9 +11,11 @@ import {
 	TextField,
 	Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AuthForms, IAuthFormProps } from "..";
+import { Context } from "@/context/User";
+import { UserActions } from "@/constants";
 
 interface ILoginFormProps extends IAuthFormProps {}
 
@@ -24,23 +26,19 @@ const LoginForm: React.FC<ILoginFormProps> = ({ onClose, onFormChange }) => {
 		formState: { errors },
 	} = useForm<ILoginUserParams>();
 	const [showPassword, setShowPassword] = useState(false);
+	const { userDispatch } = useContext(Context);
 
 	const onSubmit: SubmitHandler<ILoginUserParams> = async (data) => {
-		// const _data = { username: "09046116105", password: "amir6105" };
-		// try {
-		// 	// todo : fix types for user
-		// 	const res = await loginUser(_data as ILoginUserParams);
-		// 	if (res.statusCode !== 201) {
-		// 		throw new Error(res.message);
-		// 	}
-		// 	setTokens(res.data.tokens);
-		// 	// todo : create context for user and set user
-		// 	onClose();
-		// } catch (error) {
-		// 	console.error(error);
-		// 	alert(error);
-		// }
-		console.log("test");
+		try {
+			const res = await loginUser(data);
+			setTokens(res.data.tokens);
+			const user = await fetchProfile();
+			userDispatch({ type: UserActions.LOGGED_IN, payload: user });
+			onClose();
+		} catch (error) {
+			console.error(error);
+			alert(error);
+		}
 	};
 
 	return (

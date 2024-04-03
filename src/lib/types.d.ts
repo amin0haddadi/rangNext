@@ -20,15 +20,11 @@ type Category = {
 };
 
 type User = {
-	username: string | null;
+	id: string | null;
 	firstName: string | null;
 	lastName: string | null;
-	province: string | null;
-	city: string | null;
-	postalCode: string | null;
-	address: string | null;
+	phoneNumber: string | null;
 };
-
 type Product = ProductBase & {
 	description: string; // Description of the product
 	category: Category; // Category the product belongs to

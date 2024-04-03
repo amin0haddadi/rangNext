@@ -8,13 +8,10 @@ import cartReducer from "../cart/cartReducer";
 
 const initialCartState: Cart = [];
 const initialUserState: User = {
-	username: null,
+	id: null,
 	firstName: null,
 	lastName: null,
-	province: null,
-	city: null,
-	postalCode: null,
-	address: null,
+	phoneNumber: null,
 };
 
 export const Context = createContext({
@@ -33,9 +30,7 @@ const ContextProvider: React.FC<IContextProviderProps> = ({ children }) => {
 	useEffect(() => {
 		const setContext = async () => {
 			cartDispatch({ type: CartActions.ITEMS_UPDATED, payload: getCart() });
-			const {
-				data: { user },
-			} = await fetchProfile();
+			const user = await fetchProfile();
 			userDispatch({ type: UserActions.LOGGED_IN, payload: user });
 		};
 		setContext();
