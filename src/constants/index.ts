@@ -20,5 +20,12 @@ export enum CartActions {
 	ITEM_COUNT_DECREASED = "ITEM_COUNT_DECREASED", // Corrected: Action type for when the count of an item in the cart is decreased
 }
 
+export enum UserActions {
+	LOGGED_IN,
+	LOGGED_OUT,
+	INFO_UPDATED,
+	USERNAME_UPDATED,
+}
+
 // product limit in grid view
 export const LIMIT = 12;

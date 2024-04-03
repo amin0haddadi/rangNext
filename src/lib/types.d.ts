@@ -19,6 +19,16 @@ type Category = {
 	name: string; // Name of the category
 };
 
+type User = {
+	username: string | null;
+	firstName: string | null;
+	lastName: string | null;
+	province: string | null;
+	city: string | null;
+	postalCode: string | null;
+	address: string | null;
+};
+
 type Product = ProductBase & {
 	description: string; // Description of the product
 	category: Category; // Category the product belongs to
@@ -30,35 +40,87 @@ type CartItem = {
 	product: Omit<ProductBase, "quantity">; // Product information excluding quantity
 };
 
-// ====== Response Data Types ======
-type UserResponse = {
-	user: { [K in "username" | "id"]: string }; // User object containing username and ID
-}; // Response structure for user info
-type TokensResponse = {
+type Payment = {
+	data: {
+		authority: string;
+		fee: number;
+		fee_type: string;
+		code: number;
+		message: string;
+		link: string;
+	};
+	errors: Array<any>;
+};
+
+type Order = {
+	id: string;
+	amount: number;
+	carts: {
+		id: string;
+		quantity: number;
+		product: Product;
+		order: {
+			id: string;
+			amount: number;
+			authority: string;
+			created_at: string;
+			updated_at: string;
+		};
+	}[];
+};
+
+// * ====== Response Data Types ======
+type UserRegisterResponse = {
+	user: { username: string }; // User object containing username and ID
+}; // Response structure for user username
+
+type UserProfileResponse = {
+	user: { username: string } & Omit<User, "username">; // User object containing username and ID
+}; // Response structure for user username
+
+type UserLoginResponse = {
 	tokens: { access_token: string; refresh_token: string }; // Object containing access and refresh tokens
-}; // Response structure for tokens
+}; // Response structure for login
+
+type TokensResponse = UserLoginResponse; // Response structure for tokens
+
 type ProductsResponse = {
 	products: ProductBase[];
 	count: number;
 }; // Response structure for a list of products
+
 type ProductResponse = {
 	product: Product;
 }; // Response structure for a single product detail
+
 type CategoriesResponse = {
 	categories: Category[];
 }; // Response structure for a list of categories
+
 type CategoryResponse = {
 	category: Category & {
 		products: ProductBase[]; // Category information including a list of products within the category
 	};
 	count: number;
 }; // Response structure for a single category
+
 type CartsResponse = {
 	carts: CartItem[];
 }; // Response structure for a list of cart items
 
-// ====== Generic Action Type ======
-type Action<T> = {
-	type: T; // Type of action being performed
-	payload: CartState; // Payload associated with the action
+type ZarinpalResponse = {
+	url: string;
 };
+
+type OrdersResponse = {
+	orders: Order[];
+	count: number;
+};
+
+// * ====== Context Types ======
+type Action<T, Payload> = {
+	type: T; // Type of action being performed
+	payload: Payload; // Payload associated with the action
+};
+
+type Cart = { product: Product; quantity: number; id?: string }[];

@@ -5,6 +5,7 @@ import Rtl from "@/ui/rtl.config";
 import globalStyle from "@/ui/globalStyle";
 import theme from "@/ui/theme";
 import { ActiveStepProvider } from "@/context/activeStep";
+import ContextProvider from "@/context/User";
 
 export const metadata: Metadata = {
 	title: "70Rang",
@@ -21,7 +22,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 							<ThemeProvider theme={theme}>
 								<CssBaseline />
 								<GlobalStyles styles={globalStyle} />
-								{children}
+								<ContextProvider>{children}</ContextProvider>
 							</ThemeProvider>
 						</Rtl>
 					</AppRouterCacheProvider>
