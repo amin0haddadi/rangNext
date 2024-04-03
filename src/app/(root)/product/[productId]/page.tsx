@@ -3,7 +3,7 @@ import Product from "@/components/Product";
 import Slider from "@/components/Slider";
 import { fetchCategory } from "@/lib/api/categories";
 import { fetchProduct } from "@/lib/api/products";
-import { Divider, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 
 interface IProductPageProps {
 	params: {
@@ -12,45 +12,44 @@ interface IProductPageProps {
 }
 
 const ProductPage: React.FC<IProductPageProps> = async ({ params }) => {
-	// const {
-	// 	data: { product },
-	// } = await fetchProduct(params.productId);
-	// const {
-	// 	data: { category },
-	// } = await fetchCategory({ id: product.category.id });
+	const product = await fetchProduct(params.productId);
+	const category = await fetchCategory({ id: product.categoryId._id });
+	console.log(category);
 
-	const res = await fetch(
-		`http://localhost:3550/products/${params.productId}`,
-		{
-			cache: "no-cache",
-		}
-	);
-	if (!res) {
-		throw new Error("HTTP error! status:");
-	}
-	const p = await res.json();
-
-	const resCategory = await fetch("http://localhost:3550/products", {
-		cache: "no-cache",
-	});
-	if (!res.ok) {
-		throw new Error("HTTP error! status:");
-	}
-	const pCategory = await resCategory.json();
+	const relatedProducts =
+		category.products.length > 2 ? (
+			<Slider>
+				{category.products
+					.filter((item: any) => item._id !== params.productId)
+					.map((product: any) => (
+						<ProductCard key={product._id} product={product} />
+					))}
+			</Slider>
+		) : (
+			<Box maxWidth={400}>
+				{category.products
+					.filter((item: any) => item._id !== params.productId)
+					.map((product: any) => (
+						<ProductCard key={product.id} product={product} />
+					))}
+			</Box>
+		);
 
 	return (
 		<>
-			<Product product={p} />
-			<Divider>
-				<Typography variant="h6" component={"h5"} textAlign={"center"}>
-					محصولات مرتبط
-				</Typography>
-			</Divider>
-			<Slider>
-				{pCategory?.products.map((product: any) => (
-					<ProductCard key={product.id} product={product} />
-				))}
-			</Slider>
+			<Product product={product} />
+			{category.products.filter((item: any) => item._id !== params.productId)
+				.length ? (
+				<Divider>
+					<Typography variant="h6" component={"h5"} textAlign={"center"}>
+						محصولات مرتبط
+					</Typography>
+				</Divider>
+			) : (
+				""
+			)}
+
+			{relatedProducts}
 		</>
 	);
 };

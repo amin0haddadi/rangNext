@@ -15,7 +15,7 @@ type ProductBase = {
 }
 
 type Category = {
-	id: string;
+	_id: string;
 	name: string; // Name of the category
 };
 

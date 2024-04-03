@@ -16,7 +16,7 @@ const Product: React.FC<IProductProps> = ({ product }) => {
 	];
 	const nameAndBreadcrumbs = (
 		<Box>
-			<Breadcrumbs product={product.name} category={product.category} />
+			<Breadcrumbs product={product.name} category={product.categoryId} />
 			<Typography variant="h4" component={"h4"}>
 				{product.name}
 			</Typography>

@@ -33,7 +33,7 @@ export async function fetchProducts(
 // Fetches a single product by ID
 export async function fetchProduct(
 	id: string
-): Promise<ServerResponse<ProductResponse>> {
+): Promise<any> {
 	noStore();
 	try {
 		const res = await fetch(URL.PRODUCTS + `/${id}`);
