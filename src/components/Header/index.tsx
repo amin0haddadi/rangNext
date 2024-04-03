@@ -15,10 +15,7 @@ import CategoryMenu from "../Category";
 import { SearchDialog } from "../Search";
 import { useEffect, useState } from "react";
 
-const pages = [
-	{ title: "پیشنهاد ویژه", href: "/specials" },
-	{ title: "خرید حضوری", href: "/shop" },
-];
+const pages = [{ title: "خرید حضوری", href: "/shop" }];
 
 interface IHeaderProps {}
 
@@ -116,7 +113,7 @@ const Header: React.FC<IHeaderProps> = () => {
 							))}
 						</Box>
 						<Box sx={{ display: { xs: "none", md: "flex" } }}>
-							<AuthDialog />
+							<AuthDialog position="header" />
 							<SearchDialog />
 							<BasketButton />
 						</Box>
