@@ -1,7 +1,7 @@
 // urls
 export const BASE_URL = "http://localhost:3550/";
 export enum URL {
-	REGISTER = BASE_URL + "auth/register", // Endpoint for user registration
+	REGISTER = BASE_URL + "users", // Endpoint for user registration
 	LOGIN = BASE_URL + "auth", // Endpoint for user login
 	PROFILE = BASE_URL + "auth/profile", // Endpoint for fetching user profile data
 	LOGOUT = BASE_URL + "auth/logout", // Endpoint for user logout

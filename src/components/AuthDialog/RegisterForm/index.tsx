@@ -1,16 +1,25 @@
 "use client";
+import { UserActions } from "@/constants";
+import { Context } from "@/context/User";
+import {
+	IRegisterUserParams,
+	fetchProfile,
+	loginUser,
+	registerUser,
+} from "@/lib/api/auth";
+import { setTokens } from "@/lib/utils";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
-  Box,
-  Button,
-  IconButton,
-  InputAdornment,
-  Stack,
-  TextField,
-  Typography,
+	Box,
+	Button,
+	IconButton,
+	InputAdornment,
+	Stack,
+	TextField,
+	Typography,
 } from "@mui/material";
-import { useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { useContext, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { AuthForms, IAuthFormProps } from "..";
 
 interface IRegisterFormProps extends IAuthFormProps {}
@@ -25,10 +34,20 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
 		formState: { errors },
 	} = useForm();
 	const [showPassword, setShowPassword] = useState(false);
+	const { userDispatch } = useContext(Context);
 
-	const onSubmit: SubmitHandler<FieldValues> = (data) => {
-		// Add your login logic here using the data object
-		console.log("Register successful", data);
+	const onSubmit: SubmitHandler<any> = async (data) => {
+		try {
+			const registerRes = await registerUser(data);
+			const loginRes = await loginUser(data);
+			setTokens(loginRes.data.tokens);
+			const user = await fetchProfile();
+			userDispatch({ type: UserActions.LOGGED_IN, payload: user });
+			onClose();
+		} catch (error) {
+			console.error(error);
+			alert(error);
+		}
 	};
 
 	return (
