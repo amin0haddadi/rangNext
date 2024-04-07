@@ -25,7 +25,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 	top: 0,
 }));
 
-const drawerWidth = { xs: "90%", sm: "55%", md: "38%" };
+const drawerWidth = { xs: "90%", sm: "80%", md: `calc(60% - ${27 / 2}%)` };
 const pages = [
 	["لباس", "تیشرت", "شلوار", "کاپشن"],
 	["اکسسوری", "کلاه", "کمربند"],
@@ -75,9 +75,6 @@ const BasketDrawer: FC<IDrawerProps> = ({
 				>
 					سبد خرید
 				</Typography>
-				<Box mr={2}>
-					<LooksOneIcon />
-				</Box>
 			</DrawerHeader>
 			<Divider />
 			<List sx={{ overflowY: "auto" }}>
