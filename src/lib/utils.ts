@@ -76,3 +76,25 @@ export function debounce<T extends (...args: any[]) => void>(
 		}, wait);
 	};
 }
+
+export const fetchWithToken = async (url:string, options:any = {}) => {
+	const {access_token} = getTokens(); // Retrieve access token from wherever it's stored
+  
+	if (access_token) {
+	  if (!options.headers) {
+		options.headers = {};
+	  }
+	  options.headers.Authorization = `Bearer ${access_token}`;
+	}
+  
+	try {
+	  const response = await fetch(url, options);
+	  if (!response.ok) {
+		throw new Error(`HTTP error! status: ${response.status}`);
+	  }
+	  return response.json();
+	} catch (error) {
+	  console.error('Fetch error:', error);
+	  throw error;
+	}
+  };
