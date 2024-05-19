@@ -12,7 +12,7 @@ type ProductBase = {
 	images: string[];
 	price: number;
 	quantity: number;
-}
+};
 
 type Category = {
 	_id: string;
@@ -65,6 +65,15 @@ type Order = {
 	}[];
 };
 
+type CustomerBase = {
+	id: string;
+	username: string;
+	firstName: string;
+	lastName: string;
+};
+
+type Customer = CustomerBase & User & { orders: Order[] };
+
 // * ====== Response Data Types ======
 type UserRegisterResponse = {
 	user: { username: string }; // User object containing username and ID
@@ -82,7 +91,7 @@ type TokensResponse = UserLoginResponse; // Response structure for tokens
 
 type ProductsResponse = {
 	products: ProductBase[];
-	count: number;
+	totalPages: number;
 }; // Response structure for a list of products
 
 type ProductResponse = {
