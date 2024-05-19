@@ -29,14 +29,6 @@ const Products: React.FC<IProductsProps> = ({ page }) => {
 		fetchData();
 	}, [page, searchValue]);
 
-	// useEffect(() => {
-	// 	fetch("http://localhost:3550/products")
-	// 		.then((res) => res.json())
-	// 		.then((data) => {
-	// 			setProducts(data.products);
-	// 		});
-	// }, [searchValue, page]);
-
 	return (
 		<Stack gap={5}>
 			<ProductForm />

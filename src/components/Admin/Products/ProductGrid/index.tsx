@@ -10,7 +10,6 @@ interface IProductListProps {
 }
 
 const ProductGrid: React.FC<IProductListProps> = ({ products, count }) => {
-	console.log(products, count);
 	return (
 		<>
 			<GridView>
